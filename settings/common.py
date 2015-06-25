@@ -15,8 +15,7 @@ VERSION = 'v0.0.0'
 # =============================================================================
 # Full filesystem path to the project.
 # based on common.py is in <PROJECT_ROOT>/settings
-PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                            os.pardir)
+PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)
 
 # Name of the directory for the project.
 PROJECT_DIRNAME = PROJECT_ROOT.split(os.sep)[-1]
@@ -32,7 +31,7 @@ ROOT_URLCONF = "settings.urls"
 TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, "templates"),)
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -44,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'compressor',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -72,6 +72,16 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+STATIC_ROOT = 'staticfiles'
 
-STATIC_URL = '/static/'
-STATIC_ROOT = PROJECT_ROOT + "/static"
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+
+STATIC_URL = "/static/"
