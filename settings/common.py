@@ -15,8 +15,10 @@ VERSION = 'v0.0.0'
 # =============================================================================
 # Full filesystem path to the project.
 # based on common.py is in <PROJECT_ROOT>/settings
-PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)
+PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                            os.pardir)
 
+DEBUG = True
 # Name of the directory for the project.
 PROJECT_DIRNAME = PROJECT_ROOT.split(os.sep)[-1]
 
@@ -31,7 +33,7 @@ ROOT_URLCONF = "settings.urls"
 TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, "templates"),)
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -43,7 +45,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'compressor',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -57,13 +58,14 @@ MIDDLEWARE_CLASSES = (
 )
 
 
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.contrib.gis.db.backends.mysql',
+        'NAME': 'app_db',
+        'USER': 'app_admin',
+        'PASSWORD': "App_admin123",
+        'HOST': '127.0.0.1',
+        'PORT': '33060',
     }
 }
 SECRET_KEY = '57)p_wybgbiof@xaph3r=&t29d4yydl)-i(4px4kc&wwlah&k+'
@@ -72,16 +74,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-STATIC_ROOT = 'staticfiles'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
-)
+STATIC_ROOT = PROJECT_ROOT + "/static"
 
 STATIC_URL = "/static/"
