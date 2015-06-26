@@ -6,9 +6,10 @@ from landing.DefaultAppLanding import LandingView
 from django.contrib.staticfiles import views
 
 urlpatterns = patterns('',
+                       url(r'^$', LoginToAccount.as_view(), name="index"),
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^account/',  include('accounts.urls')),
-                       url(r'^$', LoginToAccount.as_view(), name="index"),
+                       url(r'^profile/',  include('profiles.urls')),
                        url(r'^static/(?P<path>.*)$', views.serve),
                        )
 

@@ -29,3 +29,35 @@
 .pannel-inner {
     padding: 30px 20px;
 }
+.icon-arrow-left:before {
+    font: normal normal normal 18px/1 FontAwesome;
+    content: "\f0a8";
+}
+
+.icon-arrow-right:before {
+    font: normal normal normal 18px/1 FontAwesome;
+    content: "\f0a9";
+}
+.switch {
+    text-align: center;
+}
+.datepicker-days {
+    padding: 10px;
+}
+.datepicker-days .day {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.datepicker-days .day:hover {
+    background: #ddd;
+}
+.datepicker-days .day.active {
+    background: #ddd;
+    margin: 0;
+}
+.datepicker-days .day.new, .datepicker-days .day.old {
+    color:#ccc;
+}
+.specific_class .margin-100 {
+    margin-top: 11%;
+}

@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'accounts',
     "crispy_forms",
+    "profiles",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -96,6 +97,7 @@ STATIC_ROOT = PROJECT_ROOT + "static/"
 
 STATIC_URL = "/static/"
 
+MEDIA_ROOT = 'media/uploads'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
