@@ -26,3 +26,6 @@
   z-index: 9999;
   cursor: pointer;
 }
+.pannel-inner {
+    padding: 30px 20px;
+}

@@ -8,7 +8,7 @@ from accounts.Forms.LoginForm import LoginForm
 
 
 class LoginToAccount(View):
-    template_name = "accounts/accountsform.html"
+    template_name = "index.html"
 
     def setup(self):
         form = LoginForm(self.request.POST or None)
@@ -18,6 +18,7 @@ class LoginToAccount(View):
         self.setup()
         return {
             "title": "Login to your account",
+            "form_class": "login-form"
         }
 
     def get(self, request, *args, **kwargs):

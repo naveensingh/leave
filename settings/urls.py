@@ -8,7 +8,7 @@ from django.contrib.staticfiles import views
 urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^account/',  include('accounts.urls')),
-                       url(r'^$', LandingView.as_view(), name="index"),
+                       url(r'^$', LoginToAccount.as_view(), name="index"),
                        url(r'^static/(?P<path>.*)$', views.serve),
                        )
 

@@ -8,7 +8,7 @@ from accounts.Forms.SignUpForm import SignupForm
 from django.utils.translation import ugettext_lazy as _
 
 class CreateAnAccount(CreateView):
-    template_name = "accounts/accountsform.html"
+    template_name = "accounts/signup.html"
     model = User
 
     def setup(self):

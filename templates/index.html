@@ -3,7 +3,6 @@
 
 {% block meta_title %}{{ title }}{% endblock %}
 {% block title %}{{ title }}{% endblock %}
-{% block body_id %}account{% endblock %}
 
 {% block main %}
 <div class="landing clearfix">
@@ -16,10 +15,10 @@
                     <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="col-md-6">
-                                    <h1>Hey Guy</h1>
+                                    <h1>Logged in Guy</h1>
                                 </div>
                                 <div class="col-md-6">
-                                    <h1>Hey Guy</h1>
+                                    <h1>Logged in Guy</h1>
                                 </div>
                             </div>
                         </div>
@@ -28,11 +27,22 @@
                 <div class="col-md-8 col-md-offset-2">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <div class="col-md-6">
-                                hey
-                            </div>
-                            <div class="col-md-6">
-                                hey
+                            <div class="pannel-inner clearfix">
+                                <div class="col-md-6 {{ form_class }}">
+                                    <form action="" method="post" autocomplete="off">
+                                        <fieldset>
+                                            <legend>Login to apply manage your leaves</legend>
+                                            {% crispy form %}
+                                        </fieldset>
+                                    </form>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-center">
+                                        <h4>Haven't signed up yet ?</h4>
+                                        <p>Create an account to manage your office leaves/vacation.</p>
+                                        <p><a href="{% url "signup" %}" class="btn btn-default">Create an account</a></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
