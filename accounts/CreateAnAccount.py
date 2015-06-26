@@ -1,3 +1,4 @@
+from autoslug.utils import slugify
 from django.contrib.auth.models import User
 from django.contrib.messages import info, error
 from django.http import HttpResponseRedirect
@@ -28,9 +29,31 @@ class CreateAnAccount(CreateView):
     def post(self, request, *args, **kwargs):
         self.setup()
         if request.method == "POST" and self.form.is_valid():
-            self.form.save()
-            info(request, _("Successfully signed up"))
-            return HttpResponseRedirect("/")
-        else:
-            error(request, _("You failed to signed up"))
-            return HttpResponseRedirect("/")
+            email = self.form.cleaned_data["email"]
+            if self.check_email(email):
+                username_from_email = self.build_username(email)
+                self.form.instance.username = username_from_email
+                self.form.save()
+                info(request, _("Successfully signed up"))
+                return HttpResponseRedirect("/")
+            else:
+                error(self.request, _("You failed to signed up"))
+
+        context = self.get_context()
+        context['form'] = self.form
+        return render(request, self.template_name, context)
+
+    def build_username(self, email):
+        username = slugify(email).lower()
+        if len(username) > 30:
+            username = username[:30]
+        lookup = {"username__iexact": username}
+        try:
+            User.objects.exclude(id=self.form.instance.id).get(**lookup)
+        except User.DoesNotExist:
+            return username
+
+    def check_email(self, email):
+        qs = User.objects.exclude(id=self.form.instance.id).filter(email=email)
+        if len(qs) == 0:
+            return email
