@@ -1,6 +1,15 @@
 {% extends "base.html" %}
+{% load i18n crispy_forms_tags staticfiles admin_static %}
+
+{% block meta_title %}{{ title }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+{% block body_id %}account{% endblock %}
 
 {% block main %}
 
 {{ title }}
+<a href="{% url "login" %}" class="btn-u btn-default">{% trans "Login" %}</a>
+<a href="{% url "logout" %}" class="btn-u btn-default">{% trans "Logout" %}</a>
+
 {% endblock %}
+

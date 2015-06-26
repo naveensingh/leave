@@ -45,6 +45,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
+    "crispy_forms",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -55,6 +57,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
 
 
@@ -68,6 +72,8 @@ DATABASES = {
         'PORT': '33060',
     }
 }
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+ACCOUNTS_MIN_PASSWORD_LENGTH = "6"
 SECRET_KEY = '57)p_wybgbiof@xaph3r=&t29d4yydl)-i(4px4kc&wwlah&k+'
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
@@ -75,6 +81,12 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-STATIC_ROOT = PROJECT_ROOT + "/static"
+# This fucking thing keeps on irritating but now it wont
+STATIC_ROOT = PROJECT_ROOT + "static/"
 
 STATIC_URL = "/static/"
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
+# This fucking thing keeps on irritating but now it wont

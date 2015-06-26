@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n staticfiles %}
+
+{% block meta_title %}{{ title }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="row">
+	    <fieldset>
+            <form method="post">
+                    {% csrf_token %}
+               {{ form }}
+            </form>
+		</fieldset>
+    </div>
+    <!-- End row -->
+</div><!-- End container -->
+
+{% endblock %}

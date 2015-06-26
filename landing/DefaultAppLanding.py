@@ -6,7 +6,12 @@ class LandingView(View):
     template_name = 'index.html'
 
     def get(self, request):
-        context = {
-            "title": "Latest Articles",
-        }
+        if request.user.is_authenticated():
+            context = {
+                "title": "You are logged in",
+            }
+        else:
+            context = {
+                "title": "Login to your account",
+            }
         return render(request, self.template_name, context)

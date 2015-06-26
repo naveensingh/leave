@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en">
-    {% load  i18n staticfiles %}
+    {% load i18n admin_static %}
+    {% load static from staticfiles  %}
     <head>
-
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"><!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static "bootstrap/bootstrap.min.css" %}">
+        <link rel="stylesheet" href="{% static "default/style.css" %}" />
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -26,9 +26,7 @@
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                 <i class="fa fa-close"></i>
             </button>
-
         </div>
-
     {% endfor %}
     {% endif %}
 
