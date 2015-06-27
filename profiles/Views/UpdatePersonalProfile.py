@@ -3,7 +3,6 @@ from django.shortcuts import render
 from django.views.generic import CreateView
 from django.contrib.messages import error
 from django.utils.translation import ugettext_lazy as _
-
 from profiles.forms import PersonalProfileForm
 from profiles.models import PersonalProfile
 
@@ -14,7 +13,10 @@ class UpdatePersonalProfileView(CreateView):
     form_class = PersonalProfileForm
 
     def setup(self):
-        form = PersonalProfileForm(self.request.POST or None, self.request.FILES or None)
+        personal_profile, created = PersonalProfile.objects.get_or_create(user=self.request.user)
+        self.profile_slug = personal_profile.profile_slug
+        form = PersonalProfileForm(self.request.POST or None, self.request.FILES or None,
+                                   instance=personal_profile or None)
         self.form = form
 
     def get_context(self):
@@ -26,8 +28,6 @@ class UpdatePersonalProfileView(CreateView):
     def get(self, request, *args, **kwargs):
         self.setup()
         if request.user.is_authenticated():
-            print "hello"
-            print request.user.id
             context = self.get_context()
             context['form'] = self.form
             context['title'] = "Edit Personal Profile"

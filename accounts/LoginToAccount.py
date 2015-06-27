@@ -35,7 +35,7 @@ class LoginToAccount(View):
             password = self.form.cleaned_data["password"]
 
             user = authenticate(username=username, password=password)
-            print user
+
             if user:
                 if user.is_active:
                     login(request, user)

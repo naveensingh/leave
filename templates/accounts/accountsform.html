@@ -19,11 +19,11 @@
 <div class="container">
     <div class="row {{ specific_class }}">
         <div class="margin-100"></div>
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">{{ title }}</div>
                 <div class="panel-body">
-                      <form action="" method="post" autocomplete="off">
+                      <form action="" method="post" enctype="multipart/form-data" autocomplete="off">
                           {% crispy form %}
                       </form>
                 </div>

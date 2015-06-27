@@ -19,6 +19,10 @@
                                 </div>
                                 <div class="col-md-6">
                                     <h1>Logged in Guy</h1>
+                                    {% if request.user_profile %}
+                                        <a href="{% url "view_profile" profile_slug=request.user_profile.profile_slug %}">My Profile</a>
+                                        <a href="{% url "edit_profile" profile_slug=request.user_profile.profile_slug %}">Edit</a>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

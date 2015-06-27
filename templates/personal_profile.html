@@ -1,30 +1,60 @@
 {% extends "base.html" %}
 {% load i18n crispy_forms_tags staticfiles admin_static %}
-
 {% block meta_title %}{{ title }}{% endblock %}
 {% block title %}{{ title }}{% endblock %}
-{% block body_id %}account{% endblock %}
-{% block js %}
-    <script src="{% static "default/js/datepicker.js" %}"></script>
-    <script type="text/javascript">
-        jQuery(document).ready(function () {
-            $('.date-picker').datepicker({
-                autoclose: true
-            });
-        });
-    </script>
-{% endblock %}
-{% block main %}
 
-<div class="container">
-    <div class="row {{ specific_class }}">
-        <div class="margin-100"></div>
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">{{ title }}</div>
-                <div class="panel-body">
-                      {{ profile }}
+{% block main %}
+<div class="landing clearfix">
+    <div class="landing-inner-overlay clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="margin-100"></div>
+                {% if request.user.is_authenticated %}
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">{{ title }}</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="profile col-md-4">
+                                        <img src="{{ MEDIA_URL }}{{ profile.profile_picture }}" alt=""/>
+                                    </div>
+                                    <div class="profile col-md-8">
+                                        hello
+                                    </div>
+                                </div>
+
+                                <h1>{{ profile.date_of_birth }}</h1>
+                                <h2>{{ profile.gender }}</h2>
+                                <h3>{{ profile.bio }}</h3>
+                                  <h3></h3>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="pannel-inner clearfix">
+                                <div class="col-md-6 {{ form_class }}">
+                                    <form action="" method="post" autocomplete="off">
+                                        <fieldset>
+                                            <legend>Login to apply manage your leaves</legend>
+                                            {% crispy form %}
+                                        </fieldset>
+                                    </form>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-center">
+                                        <h4>Haven't signed up yet ?</h4>
+                                        <p>Create an account to manage your office leaves/vacation.</p>
+                                        <p><a href="{% url "signup" %}" class="btn btn-default">Create an account</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>

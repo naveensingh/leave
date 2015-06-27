@@ -27,7 +27,7 @@ class PersonalProfileForm(forms.ModelForm):
         self.helper.layout = Layout(
             Fieldset(
                 '',
-                Field('date_of_birth', '<i class="icon-calendar bigger-110"></i>', css_class='date-picker'),
+                Field('date_of_birth', css_class='date-picker'),
                 Field('gender'),
                 Field('job_title'),
                 Field('profile_picture'),

@@ -60,6 +60,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "middlewares.PersonalProfileMiddleware.PersonalProfileMiddleware"
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -92,12 +93,40 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+# This fucking thing keeps on irritating but now it wont
+# STATIC_URL = "/static/"
+# STATIC_ROOT = PROJECT_ROOT + 'static',
+# MEDIA_ROOT = STATIC_ROOT + 'media'
+# UPLOAD_ROOT = MEDIA_ROOT + "uploads"
+# MEDIA_URL = STATIC_URL + "media/../"
+# STATICFILES_DIRS = (
+#     os.path.join(PROJECT_ROOT, 'static'),
+# )
+# This fucking thing keeps on irritating but now it wont
+
+#
+# STATIC_URL = '/static/'
+# STATIC_ROOT = PROJECT_ROOT + 'static/',
+# C0MPRESS_ROOT = PROJECT_ROOT + 'static/CACHE/'
+# MEDIA_ROOT = PROJECT_ROOT + 'static/media/'
+# UPLOAD_ROOT = MEDIA_ROOT + "media/uploads/"
+# DOWNLOAD_ROOT = os.path.join(PROJECT_ROOT, "static/media/downloads/")
+# STATICFILES_DIRS = (
+#     os.path.join(PROJECT_ROOT, 'static'),
+# )
+
+
+
 # This fucking thing keeps on irritating but now it wont
 STATIC_ROOT = PROJECT_ROOT + "static/"
 
 STATIC_URL = "/static/"
+MEDIA_ROOT = PROJECT_ROOT + 'static/media'
+UPLOAD_ROOT = MEDIA_ROOT + "media/uploads/"
+DOWNLOAD_ROOT = os.path.join(PROJECT_ROOT, "static/media/downloads/")
+MEDIA_URL = STATIC_URL + "media/../"
 
-MEDIA_ROOT = 'media/uploads'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )

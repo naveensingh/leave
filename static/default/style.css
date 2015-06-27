@@ -61,3 +61,6 @@
 .specific_class .margin-100 {
     margin-top: 11%;
 }
+.profile img {
+    max-width: 150px;
+}

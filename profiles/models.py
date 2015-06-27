@@ -7,14 +7,13 @@ from django.utils.translation import ugettext_lazy as _
 
 from profiles import GENDER_CHOICES
 from profiles.Helpers.AbstractUser import AbstractProfile
-from settings.common import MEDIA_ROOT
 
 
 def profile_picture_path(instance, filename):
     """
     Generate file name
     """
-    return '/'.join([MEDIA_ROOT, 'users', instance.user.username, 'personal_profile', filename])
+    return '/'.join(['media/uploads', 'users', instance.user.username, 'personal_profile', filename])
 
 
 class PersonalProfile(AbstractProfile):
@@ -35,5 +34,4 @@ class PersonalProfile(AbstractProfile):
         """
         Return absolute url to the profile
         """
-        return 'user_profile', (), {'profile_slug': self.profile_slug}
-
+        return 'view_profile', (), {'profile_slug': self.profile_slug}
