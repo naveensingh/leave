@@ -62,5 +62,19 @@
     margin-top: 11%;
 }
 .profile img {
-    max-width: 150px;
+    max-width: 100px;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+}
+.forms-padding .panel-body {
+    padding: 40px;
+}
+.panel-body-height {
+    max-height: 550px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.right {
+    float: right;
 }

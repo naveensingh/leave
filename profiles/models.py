@@ -22,7 +22,7 @@ class PersonalProfile(AbstractProfile):
                                  always_update=False, auto_created=True)
     date_of_birth = models.DateField(blank=True, null=True)
     gender = models.CharField(max_length=6, blank=True, null=True, choices=GENDER_CHOICES)
-    bio = models.CharField(blank=True, null=True, max_length=500, verbose_name=_("Short Bio"))
+    bio = models.TextField(blank=True, null=True, max_length=750, verbose_name=_("Short Bio"))
     job_title = models.CharField(blank=True, null=True, max_length=40)
     linkedin_url = models.URLField(blank=True, null=True, verbose_name=_("LinkedIn profile"))
     twitter_url = models.URLField(blank=True, null=True, verbose_name=_("Twitter profile"))

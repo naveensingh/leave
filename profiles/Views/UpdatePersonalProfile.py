@@ -30,7 +30,7 @@ class UpdatePersonalProfileView(CreateView):
         if request.user.is_authenticated():
             context = self.get_context()
             context['form'] = self.form
-            context['title'] = "Edit Personal Profile"
+            context['title'] = "Edit Profile"
             return render(request, self.template_name, context)
         else:
             error(request, "Please log in to your account")
