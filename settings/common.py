@@ -123,6 +123,7 @@ STATIC_ROOT = PROJECT_ROOT + "static/"
 
 STATIC_URL = "/static/"
 MEDIA_ROOT = PROJECT_ROOT + 'static/media'
+
 UPLOAD_ROOT = MEDIA_ROOT + "media/uploads/"
 DOWNLOAD_ROOT = os.path.join(PROJECT_ROOT, "static/media/downloads/")
 MEDIA_URL = STATIC_URL + "media/../"
