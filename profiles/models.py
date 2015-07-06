@@ -13,7 +13,7 @@ def profile_picture_path(instance, filename):
     """
     Generate file name
     """
-    return '/'.join(['media/uploads', 'users', instance.user.username, 'personal_profile', filename])
+    return '/'.join(['uploads', 'users', instance.user.username, 'personal_profile', filename])
 
 
 class PersonalProfile(AbstractProfile):

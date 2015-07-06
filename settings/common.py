@@ -119,16 +119,18 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 
 # This fucking thing keeps on irritating but now it wont
-STATIC_ROOT = PROJECT_ROOT + "static/"
+STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, "static"),)
+STATIC_URL = '/static/'
+# C0MPRESS_ROOT = PROJECT_ROOT + 'static/CACHE/'
+MEDIA_ROOT = 'static/media'
 
-STATIC_URL = "/static/"
-MEDIA_ROOT = PROJECT_ROOT + 'static/media'
+# STATIC_URL = "/static/"
+# STATIC_ROOT = PROJECT_ROOT + "static/"
+
+MEDIA_URL = STATIC_URL + "media/"
+# MEDIA_ROOT = PROJECT_ROOT + 'static/media/'
 
 UPLOAD_ROOT = MEDIA_ROOT + "media/uploads/"
 DOWNLOAD_ROOT = os.path.join(PROJECT_ROOT, "static/media/downloads/")
-MEDIA_URL = STATIC_URL + "media/../"
 
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
-)
 # This fucking thing keeps on irritating but now it wont
