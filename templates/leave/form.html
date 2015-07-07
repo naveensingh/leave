@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load i18n admin_static %}
+{% load static from staticfiles  %}
+
+
+{% block main %}
+<div class="landing clearfix">
+    <div class="landing-inner-overlay clearfix">
+        <div class="container">
+            <div class="row {{ specific_class }}">
+                <div class="margin-100"></div>
+                <div class="col-md-8 col-md-offset-2 forms-padding">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a class="right" href="{% url "view_profile" profile_slug=request.user_profile.profile_slug %}"> <i class="fa fa-caret-left"></i> Back</a>  {{ title }}
+                        </div>
+                        <div class="panel-body panel-body-height">
+                              <form action="" class="leave-form" method="post">
+                                {% csrf_token %}
+                                <p>hey there <input name="name" type="text"/> this is a form to apply for shit <input name="reason" type="text"/> starting from
+                                <input type="text" class="date-picker" id="starting_from" name="starting_from"/> untill
+                                <input type="text" class="date-picker" id="ending_on" name="ending_on"/> that comes down to
+                                <input type="text" name="no_of_days"/>
+                                </p>
+                                <input type="submit"/>
+                              </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer_scripts %}
+<script src="{% static "default/js/jquery-2.0.3.min.js" %}"></script>
+<script src="{% static "default/js/datepicker.js" %}"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        $('.date-picker').datepicker({
+            autoclose: true
+        });
+    });
+</script>
+{#<script>#}
+{#    var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds#}
+{#    var starting_from = new Date(2012, 01, 12);#}
+{#    var ending_on = new Date(2015, 01, 22);#}
+{##}
+{#    var diffDays = Math.round(Math.abs((starting_from.getTime() - ending_on.getTime())/(oneDay)));#}
+{#    console.log(diffDays);#}
+{##}
+{#</script>#}
+{% endblock %}

@@ -5,11 +5,14 @@ import os
 # Which WEB_ENV?
 # =============================================================================
 # Valid options - local, dev, qa, prod
+from mongoengine import connect
+
 WEB_ENV = 'local'
 
 # Branch and version number
 BRANCH = 'dev'
 VERSION = 'v0.0.0'
+SITE_ID = "1"
 # =============================================================================
 # PATHS
 # =============================================================================
@@ -84,6 +87,11 @@ DATABASES = {
         'PORT': '33060',
     }
 }
+# Connect to MongoDB
+
+connect('leave_test_db', host='localhost', port=27017,
+        alias='default')
+
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 ACCOUNTS_MIN_PASSWORD_LENGTH = "6"
 SECRET_KEY = '57)p_wybgbiof@xaph3r=&t29d4yydl)-i(4px4kc&wwlah&k+'

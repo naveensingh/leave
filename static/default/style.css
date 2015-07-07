@@ -72,9 +72,17 @@
 }
 .panel-body-height {
     max-height: 550px;
-    overflow: scroll;
     overflow-x: hidden;
 }
 .right {
     float: right;
+}
+
+.leave-form input[type="text"] {
+    border: 0;
+    border-bottom: 1px solid #ddd;
+}
+.leave-form input[type="text"]:focus {
+    border: 0;
+    border-bottom: 1px solid #000;
 }

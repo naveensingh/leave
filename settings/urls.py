@@ -9,6 +9,7 @@ urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^account/',  include('accounts.urls')),
                        url(r'^profile/',  include('profiles.urls')),
+                       url(r'^leave/',  include('leavebase.urls')),
                        url(r'^static/(?P<path>.*)$', views.serve),
                        )
 
