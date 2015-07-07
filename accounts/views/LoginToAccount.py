@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, render
 from django.views.generic import View
 from django.utils.translation import ugettext_lazy as _
-from accounts.Forms.LoginForm import LoginForm
+from accounts.forms.LoginForm import LoginForm
 
 
 class LoginToAccount(View):
@@ -35,7 +35,6 @@ class LoginToAccount(View):
             password = self.form.cleaned_data["password"]
 
             user = authenticate(username=username, password=password)
-
             if user:
                 if user.is_active:
                     login(request, user)

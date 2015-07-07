@@ -1,8 +1,9 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from accounts.LoginToAccount import LoginToAccount
 from django.contrib.staticfiles import views
+
+from accounts.views.LoginToAccount import LoginToAccount
 
 urlpatterns = patterns('',
                        url(r'^$', LoginToAccount.as_view(), name="index"),

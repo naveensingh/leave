@@ -33,7 +33,6 @@ class ApplyForLeaveView(CreateView):
         if request.method == "POST":
             alldata = dict(request.POST.iterlists())
             data = dict(alldata)
-            print data
             name = data.get("name")[0]
             reason = data.get("reason")[0]
             starting_from = data.get("starting_from")[0]
@@ -42,6 +41,6 @@ class ApplyForLeaveView(CreateView):
             leave = LeaveBase(user_id=self.request.user.id, name=name, reason=reason, starting_from=starting_from,
                               ending_on=ending_on)
             leave.save()
-
+            return HttpResponseRedirect("/leave/all")
         context = self.get_context()
         return render(request, self.template_name, context)

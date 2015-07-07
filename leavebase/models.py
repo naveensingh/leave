@@ -10,5 +10,5 @@ class LeaveBase(Document):
     starting_from = DateTimeField()
     ending_on = DateTimeField()
     no_of_days = IntField()
-    id_approved = BooleanField(default=False)
+    is_approved = BooleanField(default=False)
     reason = StringField(max_length=400, required=True)

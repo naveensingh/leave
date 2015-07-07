@@ -17,6 +17,7 @@ def profile_picture_path(instance, filename):
 
 
 class PersonalProfile(AbstractProfile):
+    can_approve = models.BooleanField(default=False)
     profile_slug = AutoSlugField(unique=True, editable=False,
                                  populate_from=lambda instance: str(uuid.uuid4()),
                                  always_update=False, auto_created=True)

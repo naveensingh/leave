@@ -17,9 +17,9 @@
                         <div class="panel-body panel-body-height">
                               <form action="" class="leave-form" method="post">
                                 {% csrf_token %}
-                                <p>hey there <input name="name" type="text"/> this is a form to apply for shit <input name="reason" type="text"/> starting from
-                                <input type="text" class="date-picker" id="starting_from" name="starting_from"/> untill
-                                <input type="text" class="date-picker" id="ending_on" name="ending_on"/> that comes down to
+                                <p>hey there <input name="name" type="text" required/> this is a form to apply for shit <input name="reason" type="text" required/> starting from
+                                <input type="text" class="date-picker" id="starting_from" name="starting_from" required/> untill
+                                <input type="text" class="date-picker" id="ending_on" name="ending_on" required/> that comes down to
                                 <input type="text" name="no_of_days"/>
                                 </p>
                                 <input type="submit"/>

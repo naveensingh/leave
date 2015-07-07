@@ -4,7 +4,7 @@ from django.contrib.messages import info, error
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import CreateView
-from accounts.Forms.SignUpForm import SignupForm
+from accounts.forms.SignUpForm import SignupForm
 from django.utils.translation import ugettext_lazy as _
 
 class CreateAnAccount(CreateView):
