@@ -1,9 +1,12 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from django.contrib.messages import info, error
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render
 from django.views.generic import View
 from django.utils.translation import ugettext_lazy as _
+from autoslug.utils import slugify
+
 from accounts.forms.LoginForm import LoginForm
 
 
@@ -29,23 +32,45 @@ class LoginToAccount(View):
 
     def post(self, request, *args, **kwargs):
         self.setup()
-        username = password = ''
+        email = password = ''
         if self.form.is_valid():
-            username = self.form.cleaned_data["username"]
+            email = self.form.cleaned_data["email"]
             password = self.form.cleaned_data["password"]
-
-            user = authenticate(username=username, password=password)
-            if user:
-                if user.is_active:
-                    login(request, user)
-                    info(request, _("Successfully logged in"))
-                    return HttpResponseRedirect('/')
+            self.new_username = self.build_username(email)
+            if self.check_email(email):
+                user = authenticate(username=self.new_username, password=password)
+                login(request, user)
+                info(request, _("Successfully logged in"))
+                return HttpResponseRedirect('/')
             else:
-                error(request, _("You failed to login to your account"))
+                self.create_new_user(email, password)
+                user = authenticate(username=self.new_username, password=password)
+                login(request, user)
+                info(request, _("Successfully signed up and logged in"))
                 return HttpResponseRedirect("/")
+
         else:
             error(request, _("You failed to login to your account"))
             return HttpResponseRedirect("/")
-        context = self.get_context()
-        return render_to_response(self.template_name, {'username': username}, context)
 
+    def build_username(self, email):
+        username_from_email = slugify(email).lower()
+        if len(username_from_email) > 30:
+            username_from_email = username_from_email[:30]
+        return username_from_email
+
+    def check_email(self, email):
+        user = User.objects.filter(email=email)
+        if len(user) == 0:
+            return None
+        else:
+            return user
+
+    def create_new_user(self, email, password):
+        new_user = User()
+        build_username = self.build_username(email)
+        new_user.username = build_username
+        new_user.email = email
+        new_user.set_password(password)
+        new_user.save()
+        return new_user

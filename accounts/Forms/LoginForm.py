@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(label=_("Username"))
+    email = forms.CharField(label=_("Email"))
     password = forms.CharField(label=_("Password"), widget=forms.PasswordInput(render_value=False))
 
     def __init__(self, *args, **kwargs):
@@ -18,7 +18,7 @@ class LoginForm(forms.Form):
         self.helper.layout = Layout(
             Fieldset(
                 '',
-                Field('username', autocomplete='off'),
+                Field('email', autocomplete='off'),
                 Field('password', autocomplete='off'),
             ),
             FormActions(

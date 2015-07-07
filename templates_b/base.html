@@ -4,15 +4,11 @@
     {% load static from staticfiles  %}
     <head>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"><!-- Latest compiled and minified CSS -->
-{#        <link rel="stylesheet" href="{% static "bootstrap/bootstrap.min.css" %}">#}
-
-        <link rel="stylesheet" type="text/css" href="{% static "cod/normalize.css" %}" />
-        <link rel="stylesheet" type="text/css" href="{% static "cod/demo.css" %}" />
-        <link rel="stylesheet" type="text/css" href="{% static "cod/component.css" %}" />
-		<script src="{% static "cod/modernizr.custom.js" %}"></script>
-		<script src="{% static "default/js/jquery.min.js" %}"></script>
+        <link rel="stylesheet" href="{% static "bootstrap/bootstrap.min.css" %}">
+        <link rel="stylesheet" href="{% static "default/style.css" %}" />
         <!-- Latest compiled and minified JavaScript -->
-{#        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>#}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
@@ -24,7 +20,11 @@
 
     <body>
     {% include "includes/header.html" %}
-
+    <div class="top-user-activity">
+         {% if request.user.is_authenticated %}
+               <a href="{% url "logout" %}" class="btn btn-default">{% trans "Logout" %}</a>
+         {% endif %}
+    </div>
     {% if messages %}
     {% for message in messages %}
         <div class="alert alert-{{ message.tags }} alert-dismissable extend eh">

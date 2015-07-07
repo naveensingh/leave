@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load i18n crispy_forms_tags staticfiles admin_static %}
+{% block meta_title %}{{ title }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block main %}
+<div class="landing clearfix">
+    <div class="landing-inner-overlay clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="margin-100"></div>
+                {% if request.user.is_authenticated %}
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                {{ title }}
+                                <a class="right" href="{% url "edit_profile" profile_slug=request.user_profile.profile_slug %}">Edit</a>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                        <div class="profile col-md-2">
+                                            <img src="{{ MEDIA_URL }}{{ profile.profile_picture }}" alt=""/>
+                                        </div>
+                                        <div class="profile col-md-10">
+                                            <p>
+                                                <strong>{{ request.user.first_name }} {{ request.user.last_name }}</strong><br>
+                                                {{ profile.job_title }}
+                                            </p>
+                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p style="margin-top: 20px">
+                                            {{ profile.bio }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="pannel-inner clearfix">
+                                <div class="col-md-6 {{ form_class }}">
+                                    <form action="" method="post" autocomplete="off">
+                                        <fieldset>
+                                            <legend>Login to apply manage your leaves</legend>
+                                            {% crispy form %}
+                                        </fieldset>
+                                    </form>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-center">
+                                        <h4>Haven't signed up yet ?</h4>
+                                        <p>Create an account to manage your office leaves/vacation.</p>
+                                        <p><a href="{% url "signup" %}" class="btn btn-default">Create an account</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

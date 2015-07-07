@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load i18n crispy_forms_tags staticfiles admin_static %}
+
+{% block meta_title %}{{ title }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block main %}
+<div class="landing clearfix">
+    <div class="landing-inner-overlay clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="margin-100"></div>
+                {% if request.user.is_authenticated %}
+                {% else %}
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="pannel-inner clearfix">
+                                <div class="col-md-6 {{ form_class }}">
+                                    {% if form %}
+                                        <form action="" method="post" autocomplete="off">
+                                            <fieldset>
+                                                <legend>Create an account</legend>
+                                                {% crispy form %}
+                                            </fieldset>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-center">
+                                        <h4>Have an account already ?</h4>
+                                        <p>Login to manage your office leaves/vacation.</p>
+                                        <p><a href="{% url "login" %}" class="btn btn-default">Login</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

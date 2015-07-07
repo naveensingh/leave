@@ -5,56 +5,65 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block main %}
-<div class="landing clearfix">
-    <div class="landing-inner-overlay clearfix">
-        <div class="container">
-            <div class="row">
-                <div class="margin-100"></div>
-                {% if request.user.is_authenticated %}
-                    <div class="col-md-8 col-md-offset-2">
-                    <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div class="col-md-6">
-                                    <h1>Logged in Guy</h1>
-                                </div>
-                                <div class="col-md-6">
-                                    <h1>Logged in Guy</h1>
-                                    {% if request.user_profile %}
-                                        <a href="{% url "view_profile" profile_slug=request.user_profile.profile_slug %}">My Profile</a>
-                                        <a href="{% url "edit_profile" profile_slug=request.user_profile.profile_slug %}">Edit</a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% else %}
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="pannel-inner clearfix">
-                                <div class="col-md-6 {{ form_class }}">
-                                    <form action="" method="post" autocomplete="off">
-                                        <fieldset>
-                                            <legend>Login to apply manage your KisanHub profile</legend>
-                                            {% crispy form %}
-                                        </fieldset>
-                                    </form>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="text-center">
-                                        <h4>Haven't signed up yet ?</h4>
-                                        <p>Create an account to manage your leaves/vacation at KisanHub.</p>
-                                        <p><a href="{% url "signup" %}" class="btn btn-default">Create an account</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</div>
+<div class="container">
+			<!-- Top Navigation -->
+			<div class="codrops-top clearfix">
+				<span class="right">
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url "logout" %}" class="codrops-icon codrops-icon-drop" >
+                        <span>{% trans "Logout" %}</span></a>
+                    {% endif %}
+                </span>
+			</div>
+			<header class="codrops-header">
+				<h1>
+                    <img class="logo" src="{% static "images/logo.png" %}" alt=""/>
+                    <span>KisanHub Team.</span>
+                    <span>Manage your profile and other general stuff</span></h1>
+
+			</header>
+			<section>
+				<form id="theForm" action="/" method="post" class="simform" autocomplete="off">
+                    {% csrf_token %}
+					<div class="simform-inner">
+						<ol class="questions">
+							<li>
+								<span><label for="id_username">Your Kisanhub Email</label></span>
+								<input id="id_username" name="email" type="email" required/>
+							</li>
+							<li>
+								<span><label for="id_password">Your Password</label></span>
+								<input id="id_password" name="password" type="password" required/>
+							</li>
+						</ol><!-- /questions -->
+						<button class="submit" type="submit">Send answers</button>
+						<div class="controls">
+							<button class="next"></button>
+							<div class="progress"></div>
+							<span class="number">
+								<span class="number-current"></span>
+								<span class="number-total"></span>
+							</span>
+							<span class="error-message"></span>
+						</div><!-- / controls -->
+					</div><!-- /simform-inner -->
+					<span class="final-message"></span>
+				</form><!-- /simform -->
+			</section>
+		</div><!-- /container -->
+{% endblock %}
+
+{% block footer_scripts %}
+    <script src="{% static "cod/classie.js" %}"></script>
+    <script src="{% static "cod/stepsForm.js" %}"></script>
+		<script>
+			var theForm = document.getElementById( 'theForm' );
+			new stepsForm( theForm, {
+				onSubmit : function( form ) {
+					classie.addClass( theForm.querySelector( '.simform-inner' ), 'hide' );
+                    form.submit();
+				}
+			} );
+		</script>
 {% endblock %}
 

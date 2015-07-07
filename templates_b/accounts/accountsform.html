@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n crispy_forms_tags staticfiles admin_static %}
+
+{% block meta_title %}{{ title }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+{% block body_id %}account{% endblock %}
+{% block js %}
+    <script src="{% static "default/js/datepicker.js" %}"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            $('.date-picker').datepicker({
+                autoclose: true
+            });
+        });
+    </script>
+{% endblock %}
+{% block main %}
+<div class="landing clearfix">
+    <div class="landing-inner-overlay clearfix">
+        <div class="container">
+            <div class="row {{ specific_class }}">
+                <div class="margin-100"></div>
+                <div class="col-md-8 col-md-offset-2 forms-padding">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a class="right" href="{% url "view_profile" profile_slug=request.user_profile.profile_slug %}"> <i class="fa fa-caret-left"></i> Back</a>  {{ title }}
+                        </div>
+                        <div class="panel-body panel-body-height">
+                              <form action="" method="post" enctype="multipart/form-data" autocomplete="off">
+                                  {% crispy form %}
+                              </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
