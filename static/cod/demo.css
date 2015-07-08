@@ -36,8 +36,7 @@ a:hover, a:focus {
 
 .codrops-header {
 	margin: 0 auto;
-	padding: 3em 1em;
-	height: 30%;
+	padding: 0em 1em;
 	text-align: center;
 	color: rgba(0,0,0,0.35);
 }
@@ -113,4 +112,47 @@ section {
 	.codrops-header { font-size: 0.8em; }
 	section.related { font-size: 1.2em; }
 	.codrops-icon span { display: none; }
+}
+
+.big-ole-button {
+	display: inline;
+  	margin: 0.3em;
+  	padding: 20px;
+  	width: calc(100% - 2em);
+  	border: none;
+  	background: #2dcb89;
+  	color: rgba(0,0,0,0.35);
+	border-bottom:10px solid #29bb7e ;
+  	font-size: 1em;
+  	line-height: 1;
+  	-webkit-transition: ease 0.3s;
+  	transition: ease 0.3s;
+}
+.big-ole-button:hover, .small-ole-button:hover {
+	background: #29bb7e;
+  	color: rgba(0,0,0,0.35);
+}
+.small-ole-button {
+	display: inline;
+  	margin: 0.3em;
+  	padding: 5px;
+  	width: calc(100% - 2em);
+  	border: none;
+  	background: #2dcb89;
+  	color: rgba(0,0,0,0.35);
+	border-bottom:10px solid #29bb7e ;
+  	font-size: 14px;
+  	line-height: 1;
+  	-webkit-transition: ease 0.3s;
+  	transition: ease 0.3s;
+}
+.center {
+	text-align: center!important;
+}
+
+.leave-form {
+	background: transparent;
+	border: 0;
+	border-bottom: 5px solid #29bb7e;
+	color: rgba(0, 0, 0, 0.8);
 }

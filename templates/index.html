@@ -17,45 +17,64 @@
 			</div>
 			<header class="codrops-header">
 				<h1>
-                    <img class="logo" src="{% static "images/logo.png" %}" alt=""/>
+					<a href="{% url "index" %}"><img class="logo" src="{% static "images/logo.png" %}" alt=""/></a>
                     <span>KisanHub Team.</span>
                     <span>Manage your profile and other general stuff</span></h1>
 
 			</header>
 			<section>
-				<form id="theForm" action="/" method="post" class="simform" autocomplete="off">
-                    {% csrf_token %}
-					<div class="simform-inner">
-						<ol class="questions">
-							<li>
-								<span><label for="id_username">Your Kisanhub Email</label></span>
-								<input id="id_username" name="email" type="email" required/>
-							</li>
-							<li>
-								<span><label for="id_password">Your Password</label></span>
-								<input id="id_password" name="password" type="password" required/>
-							</li>
-						</ol><!-- /questions -->
-						<button class="submit" type="submit">Send answers</button>
-						<div class="controls">
-							<button class="next"></button>
-							<div class="progress"></div>
-							<span class="number">
-								<span class="number-current"></span>
-								<span class="number-total"></span>
-							</span>
-							<span class="error-message"></span>
-						</div><!-- / controls -->
-					</div><!-- /simform-inner -->
-					<span class="final-message"></span>
-				</form><!-- /simform -->
+				{% if request.user.is_authenticated %}
+					<div class="simform center">
+						<div class="personal-profile">
+							<img src="{{ MEDIA_URL }}{{ request.user_profile.profile_picture }}" style="max-width: 100px;" alt=""/>
+							<strong>{{ request.user.first_name }} {{ request.user.last_name }}</strong><br>
+							{{ request.user_profile.bio }}
+						</div>
+					</div>
+					<div class="simform center">
+						<a href="{% url "edit_profile" profile_slug=request.user_profile.profile_slug %}" class="big-ole-button">
+							Manage Profile
+						</a>
+						<a href="{% url "apply_for_leave" %}" class="big-ole-button">Apply For Leave</a>
+					</div>
+				{% else %}
+					<form id="theForm" action="/" method="post" class="simform" autocomplete="off">
+						{% csrf_token %}
+						<div class="simform-inner">
+							<ol class="questions">
+								<li>
+									<span><label for="id_username">Your Kisanhub Email</label></span>
+									<input id="id_username" name="email" type="email"autocomplete="off" required/>
+								</li>
+								<li>
+									<span><label for="id_password">Your Password</label></span>
+									<input id="id_password" name="password" autocomplete="off" type="password" required/>
+								</li>
+							</ol><!-- /questions -->
+							<button class="submit" type="submit">Send answers</button>
+							<div class="controls">
+								<button class="next"></button>
+								<div class="progress"></div>
+								<span class="number">
+									<span class="number-current"></span>
+									<span class="number-total"></span>
+								</span>
+								<span class="error-message"></span>
+							</div><!-- / controls -->
+						</div><!-- /simform-inner -->
+						<span class="final-message"></span>
+					</form><!-- /simform -->
+
+				{% endif %}
 			</section>
 		</div><!-- /container -->
 {% endblock %}
 
 {% block footer_scripts %}
-    <script src="{% static "cod/classie.js" %}"></script>
-    <script src="{% static "cod/stepsForm.js" %}"></script>
+    {% if request.user.is_authenticated %}
+		{% else %}
+		<script src="{% static "cod/classie.js" %}"></script>
+    	<script src="{% static "cod/stepsForm.js" %}"></script>
 		<script>
 			var theForm = document.getElementById( 'theForm' );
 			new stepsForm( theForm, {
@@ -65,5 +84,7 @@
 				}
 			} );
 		</script>
+	{% endif %}
+
 {% endblock %}
 

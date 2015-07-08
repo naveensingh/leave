@@ -327,3 +327,26 @@ input[type=text]::-ms-clear {
 		font-size: 1.2em;
 	}
 }
+.divider {
+	margin: 40px 0;
+}
+.simform table,.simform tr,.simform td {
+	font-size: 14px;
+}
+.simform  table {
+	max-width: 800px;
+	margin: 0 auto;
+}
+table {
+	border: 10px solid #fff;
+}
+.list-of-applied-leaves thead {
+	background: #fff;
+}
+.list-of-applied-leaves th, .list-of-applied-leaves td {
+	padding: 20px;
+	border-right: 5px solid #f1f1f1;
+}
+.list-of-applied-leaves th:last-child, .list-of-applied-leaves td:last-child {
+	border-right: 0;
+}

@@ -1,56 +1,79 @@
 {% extends "base.html" %}
-{% load i18n admin_static %}
-{% load static from staticfiles  %}
+{% load i18n crispy_forms_tags staticfiles admin_static %}
 
+{% block meta_title %}{{ title }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block main %}
-<div class="landing clearfix">
-    <div class="landing-inner-overlay clearfix">
-        <div class="container">
-            <div class="row {{ specific_class }}">
-                <div class="margin-100"></div>
-                <div class="col-md-8 col-md-offset-2 forms-padding">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <a class="right" href="{% url "view_profile" profile_slug=request.user_profile.profile_slug %}"> <i class="fa fa-caret-left"></i> Back</a>  {{ title }}
-                        </div>
-                        <div class="panel-body panel-body-height">
-                              <form action="" class="leave-form" method="post">
-                                {% csrf_token %}
-                                <p>hey there <input name="name" type="text" required/> this is a form to apply for shit <input name="reason" type="text" required/> starting from
-                                <input type="text" class="date-picker" id="starting_from" name="starting_from" required/> untill
-                                <input type="text" class="date-picker" id="ending_on" name="ending_on" required/> that comes down to
-                                <input type="text" name="no_of_days"/>
-                                </p>
-                                <input type="submit"/>
-                              </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="container">
+    <!-- Top Navigation -->
+    <div class="codrops-top clearfix">
+        <span class="right">
+            {% if request.user.is_authenticated %}
+                <a href="{% url "logout" %}" class="codrops-icon codrops-icon-drop" >
+                <span>{% trans "Logout" %}</span></a>
+            {% endif %}
+        </span>
     </div>
-</div>
+    <header class="codrops-header">
+        <h1>
+            <a href="{% url "index" %}"><img class="logo" src="{% static "images/logo.png" %}" alt=""/></a>
+            <span>KisanHub Team.</span>
+            <span>Manage your profile and other general stuff</span></h1>
 
+    </header>
+    <section>
+        <div class="simform center">
+{#            <a href="{% url "edit_profile" profile_slug=request.user_profile.profile_slug %}" class="big-ole-button">#}
+{#                Manage Profile#}
+{#            </a>#}
+{#            <a href="{% url "apply_for_leave" %}" class="big-ole-button">Apply For Leave</a>#}
+        </div>
+        <form id="theForm" action="" method="post" class="simform" autocomplete="off">
+            {% csrf_token %}
+            <div class="simform-inner">
+                <ol class="questions">
+                    <li>
+                        <span><label for="id_reason">one</label></span>
+                            <input id="id_reason" class="leave-form" name="reason" type="text" autocomplete="off" required/>
+                    </li>
+                    <li>
+                        <span><label for="id_starting_from">two</label></span>
+                        <input type="text" class="leave-form" id="id_starting_from" name="starting_from" required/>
+                    </li>
+                    <li>
+                        <span><label for="id_ending_on">three</label></span>
+                        <input type="text" class="leave-form" id="id_ending_on" name="ending_on" required/>
+                    </li>
+                </ol><!-- /questions -->
+                <button class="submit" type="submit">Send answers</button>
+                <div class="controls">
+                    <button class="next"></button>
+                    <div class="progress"></div>
+                    <span class="number">
+                        <span class="number-current"></span>
+                        <span class="number-total"></span>
+                    </span>
+                    <span class="error-message"></span>
+                </div><!-- / controls -->
+            </div><!-- /simform-inner -->
+            <span class="final-message"></span>
+        </form><!-- /simform -->
+    </section>
+</div><!-- /container -->
 {% endblock %}
 
 {% block footer_scripts %}
-<script src="{% static "default/js/jquery-2.0.3.min.js" %}"></script>
-<script src="{% static "default/js/datepicker.js" %}"></script>
-<script type="text/javascript">
-    jQuery(document).ready(function () {
-        $('.date-picker').datepicker({
-            autoclose: true
-        });
-    });
-</script>
-{#<script>#}
-{#    var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds#}
-{#    var starting_from = new Date(2012, 01, 12);#}
-{#    var ending_on = new Date(2015, 01, 22);#}
-{##}
-{#    var diffDays = Math.round(Math.abs((starting_from.getTime() - ending_on.getTime())/(oneDay)));#}
-{#    console.log(diffDays);#}
-{##}
-{#</script>#}
+    <script src="{% static "cod/classie.js" %}"></script>
+    <script src="{% static "cod/stepsForm.js" %}"></script>
+    <script>
+        var theForm = document.getElementById( 'theForm' );
+        new stepsForm( theForm, {
+            onSubmit : function( form ) {
+                classie.addClass( theForm.querySelector( '.simform-inner' ), 'hide' );
+                form.submit();
+            }
+        } );
+    </script>
 {% endblock %}
+

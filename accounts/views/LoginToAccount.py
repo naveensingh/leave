@@ -38,14 +38,12 @@ class LoginToAccount(View):
             password = self.form.cleaned_data["password"]
             self.new_username = self.build_username(email)
             if self.check_email(email):
-                user = authenticate(username=self.new_username, password=password)
-                login(request, user)
+                self.login_user(password)
                 info(request, _("Successfully logged in"))
                 return HttpResponseRedirect('/')
             else:
                 self.create_new_user(email, password)
-                user = authenticate(username=self.new_username, password=password)
-                login(request, user)
+                self.login_user(password)
                 info(request, _("Successfully signed up and logged in"))
                 return HttpResponseRedirect("/")
 
@@ -74,3 +72,7 @@ class LoginToAccount(View):
         new_user.set_password(password)
         new_user.save()
         return new_user
+
+    def login_user(self, password):
+        user = authenticate(username=self.new_username, password=password)
+        return login(self.request, user)
