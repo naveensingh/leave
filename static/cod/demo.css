@@ -156,3 +156,13 @@ section {
 	border-bottom: 5px solid #29bb7e;
 	color: rgba(0, 0, 0, 0.8);
 }
+::-moz-placeholder {
+    color: rgba(0,0,0,0.35);
+    opacity: 1;
+}
+:-ms-input-placeholder {
+    color: rgba(0,0,0,0.35);
+}
+::-webkit-input-placeholder {
+    color: rgba(0,0,0,0.35);
+}

@@ -7,37 +7,13 @@ from profiles.models import PersonalProfile
 
 
 class PersonalProfileForm(forms.ModelForm):
+    bio = forms.CharField(max_length=750)
+    date_of_birth = forms.DateField(required=False, widget=forms.DateTimeInput(
+                                    format='%d/%m/%Y',
+                                    attrs={'class': 'al',
+                                           'placeholder': 'dd/mm/yyyy',
+                                           'data-date-format': 'dd/mm/yyyy'}))
+
     class Meta:
         model = PersonalProfile
-        fields = ("date_of_birth", "gender", "job_title", "profile_picture", "linkedin_url", "twitter_url", "bio")
-        widgets = {
-            'date_of_birth': forms.DateInput(format='%m/%d/%Y',
-                                             attrs={
-                                                 'placeholder': 'mm/dd/yyyy',
-                                                 'data-date-format': 'mm/dd/yyyy'
-                                             }),
-        }
-
-    def __init__(self, *args, **kwargs):
-        super(PersonalProfileForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_class = 'form-group'
-        self.helper.label_class = 'control-label'
-        self.helper.field_class = ''
-        self.helper.layout = Layout(
-            Fieldset(
-                '',
-                Field('date_of_birth', css_class='date-picker'),
-                Field('gender'),
-                Field('job_title'),
-                Field('profile_picture'),
-                Field('linkedin_url'),
-                Field('twitter_url'),
-                Field('bio'),
-            ),
-            FormActions(
-                Submit('submit', 'Save Profile',
-                       css_class='btn btn-primary text-center'),
-
-            ),
-        )
+        fields = ("date_of_birth", "profile_picture", "linkedin_url", "twitter_url", "bio")

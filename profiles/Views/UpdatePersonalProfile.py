@@ -8,7 +8,7 @@ from profiles.models import PersonalProfile
 
 
 class UpdatePersonalProfileView(CreateView):
-    template_name = 'accounts/accountsform.html'
+    template_name = 'personalprofile/personal_profile_form.html'
     model = PersonalProfile
     form_class = PersonalProfileForm
 
@@ -22,7 +22,7 @@ class UpdatePersonalProfileView(CreateView):
     def get_context(self):
         return {
             "title": "Edit Personal Profile",
-            "specific_class": "specific_class"
+            "body_class": "personal_profile"
         }
 
     def get(self, request, *args, **kwargs):

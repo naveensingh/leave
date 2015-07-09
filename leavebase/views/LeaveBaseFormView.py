@@ -6,7 +6,7 @@ from leavebase.models import LeaveBase
 
 
 class ApplyForLeaveView(CreateView):
-    template_name = 'leave/form.html'
+    template_name = 'leave/leave_application_form.html'
     # form_class = LeaveBaseForm
     #
     # def setup(self):

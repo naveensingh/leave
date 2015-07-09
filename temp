@@ -23,30 +23,38 @@
 
     </header>
     <section>
-        <div class="simform center">
+{#        <div class="simform center">#}
 {#            <a href="{% url "edit_profile" profile_slug=request.user_profile.profile_slug %}" class="big-ole-button">#}
 {#                Manage Profile#}
 {#            </a>#}
 {#            <a href="{% url "apply_for_leave" %}" class="big-ole-button">Apply For Leave</a>#}
-        </div>
-        <form id="theForm" action="" method="post" class="simform" autocomplete="off">
+{#        </div>#}
+        <form id="theForm" action="" method="post" class="simform" enctype="multipart/form-data" autocomplete="off">
             {% csrf_token %}
             <div class="simform-inner">
                 <ol class="questions">
                     <li>
-                        <span><label for="id_reason">one</label></span>
-                            <input id="id_reason" class="leave-form" name="reason" type="text" autocomplete="off" required/>
+                        <span><label for="id_bio">one</label></span>
+                            <input id="id_bio" class="leave-form" name="bio" type="text" autocomplete="off" required/>
                     </li>
                     <li>
-                        <span><label for="id_starting_from">two</label></span>
-                        <input type="text" class="leave-form" id="id_starting_from" name="starting_from" required/>
+                        <span><label for="id_date_of_birth">one</label></span>
+                            <input id="id_date_of_birth" class="leave-form" name="date_of_birth" type="text" autocomplete="off"/>
                     </li>
                     <li>
-                        <span><label for="id_ending_on">three</label></span>
-                        <input type="text" class="leave-form" id="id_ending_on" name="ending_on" required/>
+                        <span><label for="id_profile_picture">two</label></span>
+                        <input type="file" class="leave-form" id="id_profile_picture" name="profile_picture" required/>
+                    </li>
+                    <li>
+                        <span><label for="id_linkedin_url">three</label></span>
+                        <input type="text" class="leave-form" id="id_linkedin_url" name="linkedin_url"/>
+                    </li>
+                    <li>
+                        <span><label for="id_twitter_url">three</label></span>
+                        <input type="text" class="leave-form" id="id_twitter_url" name="twitter_url"/>
                     </li>
                 </ol><!-- /questions -->
-                <button class="submit" type="submit">Send answers</button>
+                <button class="submit" type="submit">Update Personal Profile</button>
                 <div class="controls">
                     <button class="next"></button>
                     <div class="progress"></div>
