@@ -11,10 +11,16 @@
 				{% if request.user.is_authenticated %}
 
 					<div class="simform center">
-						<a href="{% url "edit_profile" profile_slug=request.user_profile.profile_slug %}" class="big-ole-button">
-							Manage Profile
-						</a>
-						<a href="{% url "apply_for_leave" %}" class="big-ole-button">Apply For Leave</a>
+						<div class="clearfix row">
+							<a href="{% url "view_profile" profile_slug=request.user_profile.profile_slug %}" class="big-ole-button">
+								Manage Profile
+							</a>
+							<a href="{% url "apply_for_leave" %}" class="big-ole-button">Apply For Leave</a>
+
+						{% if request.user_profile.can_approve %}
+							<a href="{% url "list_of_all_unapproved_leave_requests" %}?status=open" class="big-ole-button">View open leave requests</a>
+						{% endif %}
+						</div>
 					</div>
 				{% else %}
 					<form id="theForm" action="/" method="post" class="simform" autocomplete="off">

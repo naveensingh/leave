@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load i18n crispy_forms_tags staticfiles admin_static %}
+
+{% block meta_title %}{{ title }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block main %}
+<div class="container">
+    {% include "includes/header.html" %}
+    <section class="simform">
+        <div class="center clearfix">
+            <ul class="approve_leave_nav">
+                <li><a href="{% url "edit_profile" profile_slug=request.user_profile.profile_slug %}" class="small-ole-button">
+                        Manage Profile
+                    </a>
+                </li>
+                <li><a href="{% url "apply_for_leave" %}" class="small-ole-button">Apply For Leave</a></li>
+                <li><a href="{% url "list_of_all_unapproved_leave_requests" %}?status=open" class="small-ole-button">Open requests</a></li>
+                <li><a href="{% url "list_of_all_unapproved_leave_requests" %}?status=approved" class="small-ole-button">Approved requests</a></li>
+            </ul>
+        </div>
+        <div class="divider cleafix"></div>
+        <div class="leave-results">
+            <table class="list-of-applied-leaves">
+                <thead>
+                    <tr>
+                        <th>{% trans "View Profile" %}</th>
+                        <th>{% trans "Starting From" %}</th>
+                        <th>{% trans "Ending On " %}</th>
+                        <th>{% trans "No. Of Days" %}</th>
+                        <th>{% trans "Reason" %}</th>
+                        <th>{% trans "Approved" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for single_leave in list_of_all_applied_leaves %}
+                    <tr>
+                        <td><a href="{% url "view_profile" profile_slug=request.user_profile.profile_slug %}">View Profile</a></td>
+                        <td>{{ single_leave.starting_from.date }}</td>
+                        <td>{{ single_leave.ending_on.date }}</td>
+                        <td>{{ single_leave.no_of_days }}</td>
+                        <td>{{ single_leave.reason }}</td>
+                        <td>
+                            <label>
+                                {% if single_leave.is_approved %}
+
+                                    <input class="switch-input-hidden" onchange="approve_leave_request.call(this)" type="checkbox" value='{{ single_leave.id }}' name="is_approved" checked/>
+                                    <div class="authoriser-switch authoriser-switchOn"></div>
+                                    <input class="switch-input-hidden" type="text" name="trial_code" value="{{ single_leave.id }}">
+                                {% else %}
+                                    <input class="switch-input-hidden" onchange="approve_leave_request.call(this)" type="checkbox" value='{{ single_leave.id }}' name="is_approved"/>
+                                    <div class="authoriser-switch"></div>
+                                    <input class="switch-input-hidden" type="text" name="trial_code" value="{{ single_leave.id }}">
+                                {% endif %}
+                            </label>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+<!-- /container -->
+{% endblock %}
+{% block footer_scripts %}
+<script>
+    $(document).ready(function(){
+        $('.authoriser-switch').click(function(){
+        $(this).toggleClass("authoriser-switchOn");
+        });
+    });
+</script>
+<script>
+    function approve_leave_request(){
+        var is_approved = $( this ).is(':checked');
+        do_ajax_post_request({
+            'leave_id': $(this).val(),
+            'is_approved': is_approved,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        });
+    }
+
+    function do_ajax_post_request(new_data){
+       $.ajax({
+            url : "{% url "list_of_all_unapproved_leave_requests" %}",
+            type: "POST",
+            data : new_data,
+            dataType : "json",
+            success: function( data ){
+                if (data === false) {
+                    console.log("disapproved");
+                    console.log(data);
+                } else if(data === true) {
+                    console.log("Success");
+                    console.log(data);
+                }
+
+            }
+        });
+    }
+</script>
+{% endblock %}

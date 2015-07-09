@@ -1,13 +1,16 @@
+{% load i18n crispy_forms_tags staticfiles admin_static %}
 <div class="personal-profile">
-    {% if request.user_profile.profile_picture %}
+    {% if request.user_profile.prwofile_picture %}
         <img src="{{ MEDIA_URL }}{{ request.user_profile.profile_picture }}" alt=""/>
+    {% else %}
+        <img src="{% static "images/default.png" %}" alt=""/>
     {% endif %}
     <span class="personal-profile-data">
         <strong class="name">{{ request.user.first_name }} {{ request.user.last_name }}</strong><br>
         <span class="personal-link">
-            <a class="personal-profile-url" href="{% url "edit_profile" profile_slug=request.user_profile.profile_slug %}">
-                                Manage Profile
-                            </a> <span style="color: rgba(0,0,0,0.25);font-size: 15px">|</span> <a href="{% url "logout" %}">Logout</a>
+            <a class="personal-profile-url" href="{% url "view_profile" profile_slug=request.user_profile.profile_slug %}">
+                Manage Profile
+            </a> <span style="color: rgba(0,0,0,0.25);font-size: 15px">|</span> <a href="{% url "logout" %}">Logout</a>
         </span>
     </span>
 </div>

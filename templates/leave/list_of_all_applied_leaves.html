@@ -8,12 +8,17 @@
 <div class="container">
     {% include "includes/header.html" %}
     <section>
-        <a href="{% url "edit_profile" profile_slug=request.user_profile.profile_slug %}" class="small-ole-button">
-            Manage Profile
-        </a>
-        <a href="{% url "apply_for_leave" %}" class="small-ole-button">Apply For Leave</a>
+        <div class="center clearfix">
+            <ul class="approve_leave_nav">
+                <li><a href="{% url "edit_profile" profile_slug=request.user_profile.profile_slug %}" class="small-ole-button">
+                        Manage Profile
+                    </a>
+                </li>
+                <li><a href="{% url "apply_for_leave" %}" class="small-ole-button">Apply For Leave</a></li>
+            </ul>
+        </div>
         <div class="divider cleafix"></div>
-        <div class="leave-results">
+        <div class="leave-results simform">
             <table class="list-of-applied-leaves">
                 <thead>
                     <tr>
@@ -48,11 +53,5 @@
 <!-- /container -->
 {% endblock %}
 {% block footer_scripts %}
-{#<script>#}
-{#    $(document).ready(function(){#}
-{#        $('.authoriser-switch').click(function(){#}
-{#        $(this).toggleClass("authoriser-switchOn");#}
-{#        });#}
-{#    });#}
-{#</script>#}
+
 {% endblock %}

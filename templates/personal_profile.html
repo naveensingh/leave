@@ -19,7 +19,7 @@
                                     </p>
                                 </div>
                                 <div class="width-70">
-                                    <a href="#" style="float: right;font-size: 14px">Edit Profile</a>
+                                    <a href="{% url "edit_profile" profile_slug=request.user_profile.profile_slug %}" style="float: right;font-size: 14px">Edit Profile</a>
                                     <span class="user-fullname">{{ request.user.first_name }} {{ request.user.last_name }}</span><br>
                                     <p>
                                         <a href="{{ request.user_profile.linkedin_url }}"><i class="fa fa-linkedin"></i></a>
