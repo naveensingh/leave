@@ -6,62 +6,53 @@
 
 {% block main %}
 <div class="container">
-    <!-- Top Navigation -->
-    <div class="codrops-top clearfix">
-        <span class="right">
-            {% if request.user.is_authenticated %}
-                <a href="{% url "logout" %}" class="codrops-icon codrops-icon-drop" >
-                <span>{% trans "Logout" %}</span></a>
-            {% endif %}
-        </span>
-    </div>
-    <header class="codrops-header">
-        <h1>
-            <a href="{% url "index" %}"><img class="logo" src="{% static "images/logo.png" %}" alt=""/></a>
-            <span>KisanHub Team.</span>
-            <span>Manage your profile and other general stuff</span></h1>
-
-    </header>
+    {% include "includes/header.html" %}
     <section>
-{#        <div class="simform">#}
-{#            <div class="personal-profile-only-avatar center">#}
-{#                <img src="{{ request.user_profile.profile_picture_url }}" style="max-width: 50px;" alt=""/>#}
-{#            </div>#}
-            <a href="{% url "edit_profile" profile_slug=request.user_profile.profile_slug %}" class="small-ole-button">
-                Manage Profile
-            </a>
-            <a href="{% url "apply_for_leave" %}" class="small-ole-button">Apply For Leave</a>
-            <div class="divider cleafix"></div>
-            <div class="leave-results">
-                <table class="list-of-applied-leaves">
-                    <thead>
-                        <tr>
-                            <th>{% trans "Applied On" %}</th>
-                            <th>{% trans "Starting From" %}</th>
-                            <th>{% trans "Ending On " %}</th>
-                            <th>{% trans "No. Of Days" %}</th>
-                            <th>{% trans "Reason" %}</th>
-                            <th>{% trans "Approved" %}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for single_leave in list_of_all_applied_leaves %}
-                        <tr>
-                            <td>{{ single_leave.applied_on }}</td>
-                            <td>{{ single_leave.starting_from }}</td>
-                            <td>{{ single_leave.ending_on }}</td>
-                            <td>{{ single_leave.no_of_days }}</td>
-                            <td>{{ single_leave.reason }}</td>
-                            {% if single_leave.is_approved %}
-                                <td><div class="authoriser-switch authoriser-switchOn"></div></td>
-                            {% else %}
-                                <td><div class="authoriser-switch"></div></td>
-                            {% endif %}
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+        <a href="{% url "edit_profile" profile_slug=request.user_profile.profile_slug %}" class="small-ole-button">
+            Manage Profile
+        </a>
+        <a href="{% url "apply_for_leave" %}" class="small-ole-button">Apply For Leave</a>
+        <div class="divider cleafix"></div>
+        <div class="leave-results">
+            <table class="list-of-applied-leaves">
+                <thead>
+                    <tr>
+                        <th>{% trans "Applied On" %}</th>
+                        <th>{% trans "Starting From" %}</th>
+                        <th>{% trans "Ending On " %}</th>
+                        <th>{% trans "No. Of Days" %}</th>
+                        <th>{% trans "Reason" %}</th>
+                        <th>{% trans "Approved" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for single_leave in list_of_all_applied_leaves %}
+                    <tr>
+                        <td>{{ single_leave.applied_on }}</td>
+                        <td>{{ single_leave.starting_from.date }}</td>
+                        <td>{{ single_leave.ending_on.date }}</td>
+                        <td>{{ single_leave.no_of_days }}</td>
+                        <td>{{ single_leave.reason }}</td>
+                        {% if single_leave.is_approved %}
+                            <td><div class="authoriser-switch authoriser-switchOn"></div></td>
+                        {% else %}
+                            <td><div class="authoriser-switch"></div></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </section>
+</div>
 <!-- /container -->
+{% endblock %}
+{% block footer_scripts %}
+{#<script>#}
+{#    $(document).ready(function(){#}
+{#        $('.authoriser-switch').click(function(){#}
+{#        $(this).toggleClass("authoriser-switchOn");#}
+{#        });#}
+{#    });#}
+{#</script>#}
 {% endblock %}

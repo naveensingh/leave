@@ -1,9 +1,7 @@
 import uuid
-
 from autoslug import AutoSlugField
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
 from profiles import GENDER_CHOICES
 from profiles.Helpers.AbstractUser import AbstractProfile
 

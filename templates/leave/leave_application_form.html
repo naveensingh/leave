@@ -6,29 +6,8 @@
 
 {% block main %}
 <div class="container">
-    <!-- Top Navigation -->
-    <div class="codrops-top clearfix">
-        <span class="right">
-            {% if request.user.is_authenticated %}
-                <a href="{% url "logout" %}" class="codrops-icon codrops-icon-drop" >
-                <span>{% trans "Logout" %}</span></a>
-            {% endif %}
-        </span>
-    </div>
-    <header class="codrops-header">
-        <h1>
-            <a href="{% url "index" %}"><img class="logo" src="{% static "images/logo.png" %}" alt=""/></a>
-            <span>KisanHub Team.</span>
-            <span>Manage your profile and other general stuff</span></h1>
-
-    </header>
+    {% include "includes/header.html" %}
     <section>
-{#        <div class="simform center">#}
-{#            <a href="{% url "edit_profile" profile_slug=request.user_profile.profile_slug %}" class="big-ole-button">#}
-{#                Manage Profile#}
-{#            </a>#}
-{#            <a href="{% url "apply_for_leave" %}" class="big-ole-button">Apply For Leave</a>#}
-{#        </div>#}
         <form id="theForm" action="" method="post" class="simform" autocomplete="off">
             {% csrf_token %}
             <div class="simform-inner">
