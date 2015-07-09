@@ -18,8 +18,10 @@ class ApproveLeaveRequestView(View):
         self.request_type = self.request.GET.get('status', None)
         if self.request_type == "open":
             self.get_all_leave_requests = LeaveBase.objects.filter(is_approved=False)
+            self.title = "All open leave requests"
         elif self.request_type == "approved":
             self.get_all_leave_requests = LeaveBase.objects.filter(is_approved=True)
+            self.title = "All approved leave requests"
         else:
             self.get_all_leave_requests = None
         self.get_user_with_permission = self.request.user_profile.can_approve
@@ -27,7 +29,7 @@ class ApproveLeaveRequestView(View):
     def get_context(self):
         return {
             "list_of_all_applied_leaves": self.get_all_leave_requests,
-            "title": "All applied leaves",
+            "title": self.title,
             "page_id": "list_of_all_applied_leaves"
         }
 

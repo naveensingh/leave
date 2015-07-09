@@ -1,8 +1,8 @@
 from django.conf.urls import patterns, url
-from leavebase.views.AllLeaves import ListOfAllAppliedLeaves
+from leavebase.views.AllLeaveRequests import ListOfAllAppliedLeaves
 from leavebase.views.ApproveLeaveRequestView import ApproveLeaveRequestView
 
-from leavebase.views.LeaveBaseFormView import ApplyForLeaveView
+from leavebase.views.LeaveRequestView import ApplyForLeaveView
 
 urlpatterns = patterns('',
                        url(r'^apply/$', ApplyForLeaveView.as_view(), name="apply_for_leave"),

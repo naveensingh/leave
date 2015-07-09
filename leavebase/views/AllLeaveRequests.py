@@ -10,9 +10,9 @@ class ListOfAllAppliedLeaves(View):
 
     @method_decorator(login_required)
     def get(self, request):
-        base_model = LeaveBase.objects.all()
+        get_leaves_for_user = LeaveBase.objects.filter(user_id=self.request.user.id)
         context = {
-            "list_of_all_applied_leaves": base_model,
+            "list_of_all_applied_leaves": get_leaves_for_user,
             "title": "All applied leaves",
             "page_id": "list_of_all_applied_leaves"
         }

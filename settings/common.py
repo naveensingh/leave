@@ -10,14 +10,10 @@ from mongoengine import connect
 WEB_ENV = 'local'
 
 # Branch and version number
-BRANCH = 'dev'
-VERSION = 'v0.0.0'
+# BRANCH = 'dev'
+# VERSION = 'v0.0.0'
 SITE_ID = "1"
-# =============================================================================
-# PATHS
-# =============================================================================
-# Full filesystem path to the project.
-# based on common.py is in <PROJECT_ROOT>/settings
+
 PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                             os.pardir)
 
@@ -102,27 +98,7 @@ USE_L10N = True
 USE_TZ = True
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-# This fucking thing keeps on irritating but now it wont
-# STATIC_URL = "/static/"
-# STATIC_ROOT = PROJECT_ROOT + 'static',
-# MEDIA_ROOT = STATIC_ROOT + 'media'
-# UPLOAD_ROOT = MEDIA_ROOT + "uploads"
-# MEDIA_URL = STATIC_URL + "media/../"
-# STATICFILES_DIRS = (
-#     os.path.join(PROJECT_ROOT, 'static'),
-# )
-# This fucking thing keeps on irritating but now it wont
 
-#
-# STATIC_URL = '/static/'
-# STATIC_ROOT = PROJECT_ROOT + 'static/',
-# C0MPRESS_ROOT = PROJECT_ROOT + 'static/CACHE/'
-# MEDIA_ROOT = PROJECT_ROOT + 'static/media/'
-# UPLOAD_ROOT = MEDIA_ROOT + "media/uploads/"
-# DOWNLOAD_ROOT = os.path.join(PROJECT_ROOT, "static/media/downloads/")
-# STATICFILES_DIRS = (
-#     os.path.join(PROJECT_ROOT, 'static'),
-# )
 
 
 
@@ -142,3 +118,21 @@ UPLOAD_ROOT = MEDIA_ROOT + "media/uploads/"
 DOWNLOAD_ROOT = os.path.join(PROJECT_ROOT, "static/media/downloads/")
 
 # This fucking thing keeps on irritating but now it wont
+
+
+# ------------- Email Setting --------------------------- #
+
+# The next two lines may not be required; try without them first.
+DEFAULT_FROM_EMAIL = SERVER_EMAIL = 'noreply@niabnetwork.com'
+DEFAULT_REPLY_TO_EMAIL = 'hello@niabnetwork.com'
+
+# Send 404 notifications to webmaster
+SEND_BROKEN_LINK_EMAILS = True
+
+EMAIL_HOST_USER = 'noreply@niabnetwork.com'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_PASSWORD = 'VHWXsqeTdwwv'
+EMAIL_PORT = 587
+
+# ------------- Email Setting --------------------------- #

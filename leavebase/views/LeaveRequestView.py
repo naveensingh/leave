@@ -1,5 +1,6 @@
 from datetime import date
 
+from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import CreateView
@@ -7,18 +8,11 @@ from django.contrib.messages import error, info
 from django.utils.translation import ugettext_lazy as _
 
 from leavebase.models import LeaveBase
+from settings.common import EMAIL_HOST_USER
 
 
 class ApplyForLeaveView(CreateView):
     template_name = 'leave/leave_application_form.html'
-    # form_class = LeaveBaseForm
-    #
-    # def setup(self):
-    #     # get_leave_slug = self.kwargs.get("leave_slug")
-    #     a = LeaveBase.objects.get_or_create(user=self.request.user)
-    #     form = self.form_class(self.request.POST or None, self.request.FILES or None,
-    #                            instance=a or None)
-    #     self.form = form
 
     def get_context(self):
         return {
@@ -51,6 +45,7 @@ class ApplyForLeaveView(CreateView):
                                   starting_from=starting_from,
                                   ending_on=ending_on, no_of_days=no_of_days)
                 leave.save()
+                # send_mail('Leave request', "requesting leave", '', [EMAIL_HOST_USER], fail_silently=False)
                 info(self.request, _("Applied"))
                 return HttpResponseRedirect("/leave/all")
             except:

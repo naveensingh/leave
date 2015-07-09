@@ -13,7 +13,7 @@ class UpdatePersonalProfileView(CreateView):
     form_class = PersonalProfileForm
 
     def setup(self):
-        personal_profile, created = PersonalProfile.objects.get_or_create(user=self.request.user)
+        personal_profile = PersonalProfile.objects.get(user=self.request.user)
         self.profile_slug = personal_profile.profile_slug
         form = PersonalProfileForm(self.request.POST or None, self.request.FILES or None,
                                    instance=personal_profile or None)
