@@ -23,15 +23,15 @@
 
     </header>
     <section>
-        <div class="simform">
-            <div class="personal-profile-only-avatar center">
-                <img src="{{ request.user_profile.profile_picture_url }}" style="max-width: 50px;" alt=""/>
-                <a href="{% url "edit_profile" profile_slug=request.user_profile.profile_slug %}" class="small-ole-button">
-                    Manage Profile
-                </a>
-                <a href="{% url "apply_for_leave" %}" class="small-ole-button">Apply For Leave</a>
-            </div>
-        <div class="divider cleafix"></div>
+{#        <div class="simform">#}
+{#            <div class="personal-profile-only-avatar center">#}
+{#                <img src="{{ request.user_profile.profile_picture_url }}" style="max-width: 50px;" alt=""/>#}
+{#            </div>#}
+            <a href="{% url "edit_profile" profile_slug=request.user_profile.profile_slug %}" class="small-ole-button">
+                Manage Profile
+            </a>
+            <a href="{% url "apply_for_leave" %}" class="small-ole-button">Apply For Leave</a>
+            <div class="divider cleafix"></div>
             <div class="leave-results">
                 <table class="list-of-applied-leaves">
                     <thead>
@@ -62,7 +62,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
     </section>
-</div><!-- /container -->
+<!-- /container -->
 {% endblock %}

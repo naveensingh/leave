@@ -26,7 +26,9 @@
 				{% if request.user.is_authenticated %}
 					<div class="simform center">
 						<div class="personal-profile">
-							<img src="{{ MEDIA_URL }}{{ request.user_profile.profile_picture }}" style="max-width: 100px;" alt=""/>
+							{% if request.user_profile.profile_picture %}
+								<img src="{{ MEDIA_URL }}{{ request.user_profile.profile_picture }}" style="max-width: 100px;" alt=""/>
+							{% endif %}
 							<strong>{{ request.user.first_name }} {{ request.user.last_name }}</strong><br>
 							{{ request.user_profile.bio }}
 						</div>
