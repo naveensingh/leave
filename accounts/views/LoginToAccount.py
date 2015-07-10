@@ -39,7 +39,6 @@ class LoginToAccount(View):
             self.new_username = self.build_username(email)
             if self.check_email(email):
                 self.login_user(password)
-                info(request, _("Successfully logged in"))
                 return HttpResponseRedirect('/')
             else:
                 self.create_new_user(email, password)
@@ -75,4 +74,9 @@ class LoginToAccount(View):
 
     def login_user(self, password):
         user = authenticate(username=self.new_username, password=password)
-        return login(self.request, user)
+        if user:
+            info(self.request, _("Successfully logged in"))
+            return login(self.request, user)
+        else:
+            info(self.request, _("Password wrong in"))
+            return HttpResponseRedirect('/')
