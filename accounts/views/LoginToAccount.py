@@ -36,16 +36,18 @@ class LoginToAccount(View):
         if self.form.is_valid():
             email = self.form.cleaned_data["email"]
             password = self.form.cleaned_data["password"]
-            self.new_username = self.build_username(email)
-            if self.check_email(email):
-                self.login_user(password)
-                return HttpResponseRedirect('/')
-            else:
-                self.create_new_user(email, password)
-                self.login_user(password)
-                info(request, _("Successfully signed up and logged in"))
-                return HttpResponseRedirect("/")
-
+            if self.validate_email(email):
+                self.new_username = self.build_username(email)
+                if self.check_email(email):
+                    self.login_user(password)
+                    return HttpResponseRedirect('/')
+                else:
+                    self.create_new_user(email, password)
+                    self.login_user(password)
+                    info(request, _("Successfully signed up and logged in"))
+                    return HttpResponseRedirect("/")
+            error(request, _("You failed to login to your account"))
+            return HttpResponseRedirect("/")
         else:
             error(request, _("You failed to login to your account"))
             return HttpResponseRedirect("/")
@@ -80,3 +82,13 @@ class LoginToAccount(View):
         else:
             info(self.request, _("Password wrong in"))
             return HttpResponseRedirect('/')
+
+    def validate_email(self, email):
+        if "@kisanhub.com" in email:
+            count = email.count("@")
+            if count > 1:
+                return False
+            else:
+                return True
+        else:
+            return False

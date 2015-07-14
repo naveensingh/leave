@@ -69,6 +69,24 @@
 				}
 			} );
 		</script>
+
+        <script>
+            var validateEmail = function(elementValue) {
+                var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+                if (emailPattern.test(elementValue)) {
+                    return (elementValue.indexOf("@kisanhub.com", elementValue.length - "@kisanhub.com".length) !== -1);
+                }
+            };
+            $('#id_username').keyup(function() {
+                var value = $(this).val();
+                var valid = validateEmail(value);
+                if (!valid) {
+                    $(this).css('color', 'red');
+                } else {
+                    $(this).css('color', '#000');
+                }
+            });
+        </script>
 	{% endif %}
 
 {% endblock %}
