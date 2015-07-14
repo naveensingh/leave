@@ -7,6 +7,17 @@
 {% block main %}
 <div class="container">
     {% include "includes/header.html" %}
+    <div class="center clearfix">
+            <ul class="approve_leave_nav">
+                <li><a href="{% url "edit_profile" profile_slug=request.user_profile.profile_slug %}" class="small-ole-button">
+                        Manage Profile
+                    </a>
+                </li>
+                <li><a href="{% url "apply_for_leave" %}" class="small-ole-button">Apply For Leave</a></li>
+                <li><a href="{% url "list_of_all_applied_leaves" %}" class="small-ole-button">Open requests</a></li>
+            </ul>
+        </div>
+        <div class="divider cleafix"></div>
     <section>
         <form id="theForm" action="" method="post" class="simform" autocomplete="off">
             {% csrf_token %}

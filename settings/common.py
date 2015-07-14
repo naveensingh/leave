@@ -127,7 +127,7 @@ DEFAULT_FROM_EMAIL = SERVER_EMAIL = 'noreply@niabnetwork.com'
 DEFAULT_REPLY_TO_EMAIL = 'hello@niabnetwork.com'
 
 # Send 404 notifications to webmaster
-SEND_BROKEN_LINK_EMAILS = True
+# SEND_BROKEN_LINK_EMAILS = True
 
 EMAIL_HOST_USER = 'noreply@niabnetwork.com'
 EMAIL_USE_TLS = True

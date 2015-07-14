@@ -1,0 +1,16 @@
+{% load i18n future staticfiles %}
+{% autoescape off %}
+From {{ user_first_name }},
+
+
+Hi Team,
+
+I am requesting a leave from the office starting on {{ starting_from }} untill {{ ending_on }}
+which comes down to {{ no_of_days }} days.
+
+The reason for this leave application is, {{ reason }}.
+
+I kindly request you to authorize my leave request by following this url {{ domain }}{% url "list_of_all_unapproved_leave_requests" %}?status=open
+
+
+{% endautoescape %}

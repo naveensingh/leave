@@ -1,7 +1,12 @@
 import json
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.template import Context
+from django.template.loader import get_template
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 from leavebase.models import LeaveBase
@@ -50,16 +55,45 @@ class ApproveLeaveRequestView(View):
         is_approved = form_data.get('is_approved')
         try:
             leave_approval = LeaveBase.objects.get(id=leave_id)
+            print leave_approval
+            self.get_user_who_applied = User.objects.get(id=leave_approval.user_id)
+            print self.get_user_who_applied
+            print self.get_user_who_applied.first_name
 
             if is_approved == "true":
                 leave_approval.is_approved = True
+                self.send_email_with_approval()
 
             if is_approved == "false":
                 leave_approval.is_approved = False
+                self.send_email_with_rejection()
 
             leave_approval.save()
             return HttpResponse(json.dumps({"message": "Leave Approved Sucessfully"}),
                                 content_type="application/json")
         except Exception as ex:
-            print ex
             return HttpResponse(json.dumps({"message": "Something went wrong..."}), content_type="application/json")
+
+    def send_email_with_approval(self):
+        template = get_template('leave/includes/leave_approved_message.html')
+        context = Context({
+            "no_of_days": "3",
+            "applicant": self.get_user_who_applied.first_name
+        })
+        content = template.render(context)
+        send_mail('Application for leave from office', content, '', [self.get_user_who_applied.email],
+                  fail_silently=False)
+
+        return True
+
+    def send_email_with_rejection(self):
+        template = get_template('leave/includes/leave_rejected_message.html')
+        context = Context({
+            "no_of_days": "3",
+            "applicant": self.get_user_who_applied.first_name
+        })
+        content = template.render(context)
+        send_mail('Application for leave from office', content, '', [self.get_user_who_applied.email],
+                  fail_silently=False)
+
+        return True

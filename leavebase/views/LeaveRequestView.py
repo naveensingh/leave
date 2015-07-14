@@ -1,14 +1,16 @@
 from datetime import date
 
+from django.contrib import messages
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.template import Context
+from django.template.loader import get_template
 from django.views.generic import CreateView
 from django.contrib.messages import error, info
 from django.utils.translation import ugettext_lazy as _
 
 from leavebase.models import LeaveBase
-from settings.common import EMAIL_HOST_USER
 
 
 class ApplyForLeaveView(CreateView):
@@ -32,24 +34,25 @@ class ApplyForLeaveView(CreateView):
         if request.method == "POST":
             alldata = dict(request.POST.iterlists())
             data = dict(alldata)
-            reason = data.get("reason")[0]
-            starting_from = data.get("starting_from")[0]
-            ending_on = data.get("ending_on")[0]
+            self.reason = data.get("reason")[0]
+            self.starting_from = data.get("starting_from")[0]
+            self.ending_on = data.get("ending_on")[0]
 
             try:
-                no_of_days = self.get_no_of_days(starting_from, ending_on).days
+                self.no_of_days = self.get_no_of_days(self.starting_from, self.ending_on).days
             except:
-                no_of_days = 0
+                self.no_of_days = 0
+            leave = None
             try:
-                leave = LeaveBase(user_id=self.request.user.id, name=self.request.user.first_name, reason=reason,
-                                  starting_from=starting_from,
-                                  ending_on=ending_on, no_of_days=no_of_days)
+                leave = LeaveBase(user_id=self.request.user.id, name=self.request.user.first_name, reason=self.reason,
+                                  starting_from=self.starting_from,
+                                  ending_on=self.ending_on, no_of_days=self.no_of_days)
                 leave.save()
-                # send_mail('Leave request', "requesting leave", '', [EMAIL_HOST_USER], fail_silently=False)
-                info(self.request, _("Applied"))
-                return HttpResponseRedirect("/leave/all")
             except:
                 error(self.request, _("Failed to apply"))
+            if leave:
+                self.send_email_with_data()
+                return HttpResponseRedirect("/leave/all")
 
         context = self.get_context()
         return render(request, self.template_name, context)
@@ -57,7 +60,6 @@ class ApplyForLeaveView(CreateView):
     def get_no_of_days(self, starting_from, ending_on):
         get_starting_date = self.make_date_list(str(starting_from))
         get_ending_date = self.make_date_list(str(ending_on))
-
         get_days = get_ending_date - get_starting_date
 
         return get_days
@@ -69,3 +71,21 @@ class ApplyForLeaveView(CreateView):
                                  int(get_starting_date_list[0]))
 
         return get_starting_date
+
+    # Email to admin
+
+    def send_email_with_data(self):
+        template = get_template('leave/includes/request_leave_email_body.html')
+        user_email = self.request.user.email
+        context = Context({
+            "domain": self.request.get_host(),
+            "user_first_name": self.request.user.first_name,
+            "reason": self.reason,
+            "starting_from": self.starting_from,
+            "ending_on": self.ending_on,
+            "no_of_days": self.no_of_days
+        })
+        content = template.render(context)
+        send_mail('Application for leave from office', content, '', [user_email], fail_silently=False)
+
+        return True
