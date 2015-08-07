@@ -25,6 +25,8 @@
                                         <a href="{{ request.user_profile.linkedin_url }}"><i class="fa fa-linkedin"></i></a>
                                         <a href="{{ request.user_profile.twitter_url }}"><i class="fa fa-twitter"></i></a>
                                     </p>
+                                    <p>Total leaves taken: {{ total_leaves_by_user }} of 28 available days.</p>
+                                    <p>Overdue on leaves by {{ user_overdue }} days.</p>
                                     <p class="user-bio">{{ request.user_profile.bio }}</p>
                                 </div>
                             </div>

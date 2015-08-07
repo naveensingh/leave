@@ -118,21 +118,3 @@ UPLOAD_ROOT = MEDIA_ROOT + "media/uploads/"
 DOWNLOAD_ROOT = os.path.join(PROJECT_ROOT, "static/media/downloads/")
 
 # This fucking thing keeps on irritating but now it wont
-
-
-# ------------- Email Setting --------------------------- #
-
-# The next two lines may not be required; try without them first.
-DEFAULT_FROM_EMAIL = SERVER_EMAIL = 'noreply@niabnetwork.com'
-DEFAULT_REPLY_TO_EMAIL = 'hello@niabnetwork.com'
-
-# Send 404 notifications to webmaster
-# SEND_BROKEN_LINK_EMAILS = True
-
-EMAIL_HOST_USER = 'noreply@niabnetwork.com'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_PASSWORD = 'VHWXsqeTdwwv'
-EMAIL_PORT = 587
-
-# ------------- Email Setting --------------------------- #

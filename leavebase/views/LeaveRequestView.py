@@ -1,13 +1,12 @@
 from datetime import date
 
-from django.contrib import messages
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template import Context
 from django.template.loader import get_template
 from django.views.generic import CreateView
-from django.contrib.messages import error, info
+from django.contrib.messages import error
 from django.utils.translation import ugettext_lazy as _
 
 from leavebase.models import LeaveBase
